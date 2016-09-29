@@ -239,11 +239,11 @@ lru_cache::lru_cache(size_t capacity) : mem(capacity), set() { }
 
 lru_cache::iterator lru_cache::find(key_type x) {
     node *found = set.find(x);
-    if (found == nullptr || found->key != x) {
-        found = set.end();
+    if (!(found == nullptr || found->key != x)) {
+        mem.update_latest_node(found);
+        return found;
     }
-    mem.update_latest_node(found);
-    return found;
+    return set.end();
 }
 
 std::pair<lru_cache::iterator, bool> lru_cache::insert(value_type x) {
