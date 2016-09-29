@@ -77,7 +77,7 @@ private:
 
         node *find(key_type);
 
-        node *erase(node *); //TODO test it
+        node *erase(node *);
 
         node *begin() const;
 

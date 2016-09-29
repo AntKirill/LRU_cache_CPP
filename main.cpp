@@ -42,12 +42,35 @@ using namespace std;
 //    cout << *((*cache.set.find(0)).mapped) << endl;
 //}
 
+void test1_cache() {
+    lru_cache cache(10);
+    for (int i = 0; i < 100; i++) {
+        cache.insert(make_pair(i, 10*i));
+    }
+    lru_cache::iterator it = cache.begin();
+    while (it != cache.end()) {
+        cout << **it << endl;
+        it++;
+    }
+    cout << **it << endl;
+    cout << "_________________________________" << endl;
+}
+
+void test2_cache() {
+    lru_cache cache(10);
+    for (int i = 0; i < 100; i++) {
+        cache.insert(make_pair(i, 10*i));
+    }
+    for (int i = 0; i < 100; i++) {
+        lru_cache::iterator p = cache.find(i);
+        if (i >= 90 && **p != 10*i) cout << "WA" << endl;
+        if (i < 90 && **p != **cache.end()) cout << "WA" << endl;
+    }
+    cout << "_________________________________" << endl;
+}
+
 int main() {
-    lru_cache cache(2);
-    cache.insert(make_pair(10, 10));
-    cache.insert(make_pair(20, 20));
-    cache.insert(make_pair(0, 0));
-    cache.insert(make_pair(100, 100));
-    cout << **cache.end();
+    test1_cache();
+    test2_cache();
     return 0;
 }

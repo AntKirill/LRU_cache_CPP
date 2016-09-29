@@ -53,7 +53,7 @@ lru_cache::node *lru_cache::bst_tree::search(node *x, key_type k) {
     }
 }
 
-lru_cache::node *lru_cache::bst_tree::insert(node* x) {
+lru_cache::node *lru_cache::bst_tree::insert(node *x) {
     s++;
     return _insert(fake_node.left, x);
 }
@@ -262,7 +262,7 @@ void lru_cache::erase(iterator it_on_x) {
     node *x = it_on_x.my_el;
     set.erase(x);
     mem.erase(x);
-    delete(x);
+    delete (x);
 }
 
 bool lru_cache::iterator::operator==(const iterator &x) const {
