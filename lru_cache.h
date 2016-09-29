@@ -100,6 +100,8 @@ private:
 
         node *_insert(node *, node *);
 
+        node *_erase(node *);
+
         static node *get_max(node *); //from root of subtree
 
         static node *get_min(node *);

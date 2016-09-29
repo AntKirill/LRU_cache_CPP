@@ -86,9 +86,8 @@ lru_cache::node *lru_cache::bst_tree::_insert(node *x, node *z) {
     return z;
 }
 
-lru_cache::node *lru_cache::bst_tree::erase(node *x) {
+lru_cache::node *lru_cache::bst_tree::_erase(node *x) {
     node *p = x->parent;
-    s--;
     //std::cout << x->key << std::endl;
     if (x->left == nullptr && x->right == nullptr) {
         if (x == p->left) {
@@ -187,6 +186,10 @@ size_t lru_cache::bst_tree::size() const {
     return s;
 }
 
+lru_cache::node *lru_cache::bst_tree::erase(node *x) {
+    s--;
+    return _erase(x);
+}
 
 lru_cache::node::node(key_type key, mapped_type *mapped, node *left, node *right, node *parent, node *next, node *prev)
         : key(
