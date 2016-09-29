@@ -271,8 +271,8 @@ void lru_cache::erase(iterator it_on_x) {
     node *x = it_on_x.my_el;
     set.erase(x);
     mem.erase(x);
-    delete(x->mapped);
-    delete(x);
+    delete x->mapped;
+    delete x;
 }
 
 bool lru_cache::iterator::operator==(const iterator &x) const {
@@ -295,8 +295,8 @@ lru_cache::~lru_cache() {
     while (mem.size() > 0) {
         node *x = mem.erase(mem.begin());
         set.erase(x);
-        delete(x->mapped);
-        delete(x);
+        delete x->mapped;
+        delete x;
     }
     set.~bst_tree();
     mem.~list();
