@@ -3,45 +3,6 @@
 
 using namespace std;
 
-
-//void test1() { //delete private before using
-//    lru_cache cache(10);
-//    map<int, int> ans;
-//    set<int> keys;
-//    const int N = 100;
-//    int a = 0, b = 0;
-//    srand(time(0));
-//    for (int i = 0; i < N; i++) {
-//        a = rand() % 1000000;
-//        b = rand() % 1000000;
-//        keys.insert(a);
-//        cache.set.insert(make_pair(a, b));
-//        ans.insert(make_pair(a, b));
-//    }
-//    for (int i: keys) {
-//        int right, my;
-//        if (ans.count(i)) {
-//            right = ans[i];
-//        } else {
-//            right = (*ans.end()).second;
-//        }
-//        my = *(*cache.set.find(i)).mapped;
-//        if (my != right) {
-//            cout << "WA!!!\n";
-//        }
-//    }
-//}
-//
-//void testtest() {
-//    lru_cache cache(10);
-//    cache.set.insert(make_pair(1, 1));
-//    cache.set.insert(make_pair(5, 5));
-//    cache.set.insert(make_pair(2, 2));
-//    cache.set.insert(make_pair(4, 4));
-//    cache.set.insert(make_pair(3, 3));
-//    cout << *((*cache.set.find(0)).mapped) << endl;
-//}
-
 void test1_cache(int n, size_t size) {
     lru_cache cache(size);
     for (int i = 0; i < n; i++) {
@@ -82,7 +43,7 @@ bool _test3_cache(int n) {
     lru_cache cache((size_t) n + 1);
     map<int, int> right;
     save_test.clear();
-    srand(time(0));
+    srand((unsigned)time(0));
     for (int i = 0; i < n; i++) {
         int key = rand() % (n + 2);
         try {
@@ -127,19 +88,19 @@ void test4_cache() {
     cache.erase(cache.find(4));
 }
 
-void debug(int n) {
-    lru_cache cache((size_t) n + 2);
-    for (int i = 0; i < n; i++) {
-        int x = 0, y = 0;
-        scanf("%d %d", &x, &y);
-        cache.insert(make_pair(x, y));
-    }
-}
+//void debug(int n) {
+//    lru_cache cache((size_t) n + 2);
+//    for (int i = 0; i < n; i++) {
+//        int x = 0, y = 0;
+//        scanf("%d %d", &x, &y);
+//        cache.insert(make_pair(x, y));
+//    }
+//}
 
 int main() {
     freopen("in.txt", "r", stdin);
     freopen("out.txt", "w", stdout);
-    test1_cache(10000, 2);
+    test1_cache(10000, 20);
     test2_cache(10000, 100);
     test3_cache(1000, 100);
     test4_cache();
