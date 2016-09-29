@@ -42,8 +42,8 @@ using namespace std;
 //    cout << *((*cache.set.find(0)).mapped) << endl;
 //}
 
-void test1_cache(int n) {
-    lru_cache cache(10);
+void test1_cache(int n, size_t size) {
+    lru_cache cache(size);
     for (int i = 0; i < n; i++) {
         cache.insert(make_pair(i, 10 * i));
     }
@@ -59,18 +59,18 @@ void test1_cache(int n) {
 void test2_cache(int n, int size) {
     lru_cache cache((size_t) size);
     for (int i = 0; i < n; i++) {
-        cache.insert(make_pair(i, 10 * i));
+        cache.insert(make_pair(i, i));
     }
     for (int i = 0; i < n; i++) {
         lru_cache::iterator p = cache.find(i);
-        if (i >= n - size && **p != size * i) cout << "WA" << endl;
-        if (i < n - size && **p != **cache.end()) cout << "WA" << endl;
+        if ((i >= n - size) && **p != i) cout << "WA" << endl;
+        if ((i < n - size) && **p != **cache.end()) cout << "WA" << endl;
     }
     cout << "_________________________________" << endl;
 }
 
 int main() {
-    test1_cache(10000);
-    test2_cache(10000, 10);
+    test1_cache(10000, 10000 - 1);
+    test2_cache(10000, 1000);
     return 0;
 }
