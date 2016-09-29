@@ -196,7 +196,10 @@ lru_cache::node::node(key_type key, mapped_type *mapped, node *left, node *right
         key), mapped(mapped), left(left), right(right), parent(parent), next(next), prev(prev) { }
 
 lru_cache::list::list(size_t capacity) : capacity(capacity),
-                                         fake_node(0, 0, nullptr, nullptr, nullptr, &fake_node, &fake_node) { }
+                                         fake_node(0, 0, nullptr, nullptr, nullptr, nullptr, nullptr) {
+    this->fake_node.next = &fake_node;
+    this->fake_node.prev = &fake_node;
+}
 
 lru_cache::iterator lru_cache::list::insert(node *place, node *x) {
     s++;
