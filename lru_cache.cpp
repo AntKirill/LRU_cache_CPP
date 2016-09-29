@@ -198,9 +198,6 @@ lru_cache::iterator lru_cache::list::insert(node *place, node *x) {
 }
 
 lru_cache::list::~list() {
-    while (size() > 0) {
-        delete (this->erase(this->begin()));
-    }
     fake_node.~node();
 }
 
@@ -282,10 +279,11 @@ lru_cache::iterator lru_cache::end() const {
 }
 
 
+
 lru_cache::~lru_cache() {
-    while (set.size() > 0) {
-        node *x = set.erase(set.begin());
-        mem.erase(x);
+    while (mem.size() > 0) {
+        node *x = mem.erase(mem.begin());
+        set.erase(x);
         delete (x);
     }
     set.~bst_tree();

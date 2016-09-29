@@ -52,6 +52,8 @@ struct lru_cache {
     // Возващает итератор на элемент следующий за элементом с максимальным ключом.
     iterator end() const;
 
+
+
 private:
     struct node {
         key_type key;
@@ -154,6 +156,5 @@ struct lru_cache::iterator {
 private:
     node *my_el;
 };
-
 
 #endif //LRU_CACHE_LRU_CACHE_H

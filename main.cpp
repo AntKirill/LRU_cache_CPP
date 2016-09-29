@@ -42,10 +42,10 @@ using namespace std;
 //    cout << *((*cache.set.find(0)).mapped) << endl;
 //}
 
-void test1_cache() {
+void test1_cache(int n) {
     lru_cache cache(10);
-    for (int i = 0; i < 100; i++) {
-        cache.insert(make_pair(i, 10*i));
+    for (int i = 0; i < n; i++) {
+        cache.insert(make_pair(i, 10 * i));
     }
     lru_cache::iterator it = cache.begin();
     while (it != cache.end()) {
@@ -56,21 +56,21 @@ void test1_cache() {
     cout << "_________________________________" << endl;
 }
 
-void test2_cache() {
-    lru_cache cache(10);
-    for (int i = 0; i < 100; i++) {
-        cache.insert(make_pair(i, 10*i));
+void test2_cache(int n, int size) {
+    lru_cache cache((size_t) size);
+    for (int i = 0; i < n; i++) {
+        cache.insert(make_pair(i, 10 * i));
     }
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < n; i++) {
         lru_cache::iterator p = cache.find(i);
-        if (i >= 90 && **p != 10*i) cout << "WA" << endl;
-        if (i < 90 && **p != **cache.end()) cout << "WA" << endl;
+        if (i >= n - size && **p != size * i) cout << "WA" << endl;
+        if (i < n - size && **p != **cache.end()) cout << "WA" << endl;
     }
     cout << "_________________________________" << endl;
 }
 
 int main() {
-    test1_cache();
-    test2_cache();
+    test1_cache(10000);
+    test2_cache(10000, 10);
     return 0;
 }
