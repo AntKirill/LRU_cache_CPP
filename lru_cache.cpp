@@ -112,7 +112,7 @@ lru_cache::node *lru_cache::bst_tree::_erase(node *x) {
     } else {
         node *best_node = get_next(x);
         bool bad = (x->right == best_node);
-        this->erase(best_node);
+        this->_erase(best_node);
         //std::cout << x->right->key << std::endl;
         if (p->left == x) {
             p->left = best_node;
