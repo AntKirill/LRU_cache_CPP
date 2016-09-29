@@ -124,7 +124,7 @@ private:
 
         size_t size() const;
 
-        void update_latest_node(node *); //make node that has been already in list latest;
+        void update_latest_node(node *); //make node that has been already latest in list
 
     private:
         node fake_node;
