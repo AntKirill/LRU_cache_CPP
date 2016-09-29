@@ -89,6 +89,7 @@ lru_cache::node *lru_cache::bst_tree::_insert(node *x, node *z) {
 lru_cache::node *lru_cache::bst_tree::erase(node *x) {
     node *p = x->parent;
     s--;
+    //std::cout << x->key << std::endl;
     if (x->left == nullptr && x->right == nullptr) {
         if (x == p->left) {
             p->left = x->right;
@@ -110,7 +111,10 @@ lru_cache::node *lru_cache::bst_tree::erase(node *x) {
         }
         x->left->parent = p;
     } else {
-        node *best_node = get_max(x->right);
+        node *best_node = get_next(x);
+        bool bad = (x->right == best_node);
+        this->erase(best_node);
+        //std::cout << x->right->key << std::endl;
         if (p->left == x) {
             p->left = best_node;
         } else {
@@ -118,8 +122,12 @@ lru_cache::node *lru_cache::bst_tree::erase(node *x) {
         }
         best_node->parent = p;
         best_node->left = x->left;
-        best_node->right = x->right;
-        x->right->parent = best_node;
+        if (!bad) {
+            best_node->right = x->right;
+            x->right->parent = best_node;
+        } else {
+            best_node->right = nullptr;
+        }
         x->left->parent = best_node;
     }
     return x;
@@ -247,9 +255,13 @@ std::pair<lru_cache::iterator, bool> lru_cache::insert(value_type x) {
             mem.erase(useless_node);
             delete (useless_node);
         }
-        node *newnode = new node(x.first, new mapped_type(x.second), nullptr, nullptr, nullptr, nullptr, nullptr);
-        set.insert(newnode);
-        return std::make_pair(mem.insert(mem.begin(), newnode), true);
+        try {
+            node *newnode = new node(x.first, new mapped_type(x.second), nullptr, nullptr, nullptr, nullptr, nullptr);
+            set.insert(newnode);
+            return std::make_pair(mem.insert(mem.begin(), newnode), true);
+        } catch (...) {
+            throw "Error";
+        }
     }
     mem.update_latest_node(it);
     return std::make_pair(iterator(it), false);
