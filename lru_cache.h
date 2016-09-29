@@ -145,6 +145,10 @@ struct lru_cache::iterator {
 
     iterator operator--(int);
 
+    bool operator==(const iterator &) const;
+
+    bool operator!=(const iterator &) const;
+
     friend void lru_cache::erase(iterator);
 
 private:
