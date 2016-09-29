@@ -67,6 +67,7 @@ private:
         node *prev;
 
         node(key_type key, mapped_type *mapped, node *left, node *right, node *parent, node *next, node *prev);
+
     };
 
     struct bst_tree {
