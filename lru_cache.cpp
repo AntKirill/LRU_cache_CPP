@@ -12,8 +12,8 @@ lru_cache::iterator::~iterator() {
     (*my_el).~node();
 }
 
-lru_cache::mapped_type *lru_cache::iterator::operator*() const {
-    return my_el->mapped;
+lru_cache::value_type lru_cache::iterator::operator*() const {
+    return value_type(my_el->key, *my_el->mapped);
 }
 
 lru_cache::iterator lru_cache::iterator::operator++(int) {
@@ -255,13 +255,10 @@ std::pair<lru_cache::iterator, bool> lru_cache::insert(value_type x) {
             mem.erase(useless_node);
             delete (useless_node);
         }
-        try {
-            node *newnode = new node(x.first, new mapped_type(x.second), nullptr, nullptr, nullptr, nullptr, nullptr);
-            set.insert(newnode);
-            return std::make_pair(mem.insert(mem.begin(), newnode), true);
-        } catch (...) {
-            throw "Error";
-        }
+        mapped_type *ptr = new mapped_type(x.second);
+        node *newnode = new node(x.first, ptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+        set.insert(newnode);
+        return std::make_pair(mem.insert(mem.begin(), newnode), true);
     }
     mem.update_latest_node(it);
     return std::make_pair(iterator(it), false);

@@ -63,8 +63,8 @@ void test2_cache(int n, int size) {
     }
     for (int i = 0; i < n; i++) {
         lru_cache::iterator p = cache.find(i);
-        if ((i >= n - size) && **p != i) cout << "WA" << endl;
-        if ((i < n - size) && **p != **cache.end()) cout << "WA" << endl;
+        if ((i >= n - size) && (*p).second != i) cout << "WA" << endl;
+        if ((i < n - size) && (*p) != *cache.end()) cout << "WA" << endl;
     }
     //cout << "_________________________________" << endl;
 }
@@ -97,13 +97,13 @@ bool _test3_cache(int n) {
     auto it_right = right.begin();
     bool ok = true;
     while (it != cache.end()) {
-        if (**it != (*it_right).second) {
+        if ((*it).second != (*it_right).second) {
             ok = false;
         }
         it++;
         it_right++;
     }
-    if (**it != (*it_right).second) {
+    if ((*it).second != (*it_right).second) {
         ok = false;
     }
     return ok;

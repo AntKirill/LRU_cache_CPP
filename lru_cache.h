@@ -137,7 +137,7 @@ struct lru_cache::iterator {
 
     ~iterator();
 
-    mapped_type *operator*() const;
+    value_type operator*() const;
 
     iterator &operator++();
 
