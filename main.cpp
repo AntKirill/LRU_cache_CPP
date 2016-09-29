@@ -46,11 +46,7 @@ bool _test3_cache(int n) {
     srand((unsigned)time(0));
     for (int i = 0; i < n; i++) {
         int key = rand() % (n + 2);
-        try {
-            cache.insert(make_pair(key, key));
-        } catch (...) {
-            throw "Error";
-        }
+        cache.insert(make_pair(key, key));
         right[key] = key;
         save_test.push_back(make_pair(key, key));
     }
