@@ -259,6 +259,7 @@ std::pair<lru_cache::iterator, bool> lru_cache::insert(value_type x) {
             node *useless_node = mem.end();
             set.erase(useless_node);
             mem.erase(useless_node);
+            delete useless_node->mapped;
             delete (useless_node);
         }
         mapped_type *ptr = new mapped_type(x.second);
