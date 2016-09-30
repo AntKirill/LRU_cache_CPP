@@ -99,7 +99,7 @@ int main() {
     freopen("out.txt", "w", stdout);
     test1_cache(10000, 20);
     test2_cache(10000, 100);
-    test3_cache(1000, 100);
+    test3_cache(100, 100);
     test4_cache();
     return 0;
 }

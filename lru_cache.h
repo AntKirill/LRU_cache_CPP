@@ -68,13 +68,13 @@ private:
 
         node(key_type key, mapped_type mapped, node *left, node *right, node *parent, node *next, node *prev);
 
+
     };
 
     struct bst_tree {
 
         bst_tree();
 
-        ~bst_tree();
 
         node *insert(node*);
 
@@ -113,7 +113,6 @@ private:
 
         list(size_t capacity);
 
-        ~list();
 
         iterator insert(node *, node *); //(where? , what? ) //returns iterator on node which was inserted
 

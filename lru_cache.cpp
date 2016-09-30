@@ -154,10 +154,6 @@ lru_cache::node *lru_cache::bst_tree::get_min(node *x) {
     return get_min(x->left);
 }
 
-lru_cache::bst_tree::~bst_tree() {
-    fake_node.~node();
-}
-
 lru_cache::node *lru_cache::bst_tree::get_next(node *x) {
     if (x->right != nullptr) {
         return get_min(x->right);
@@ -195,6 +191,7 @@ lru_cache::node::node(key_type key, mapped_type mapped, node *left, node *right,
         : key(
         key), mapped(mapped), left(left), right(right), parent(parent), next(next), prev(prev) { }
 
+
 lru_cache::list::list(size_t capacity) : capacity(capacity),
                                          fake_node(0, 0, nullptr, nullptr, nullptr, nullptr, nullptr) {
     this->fake_node.next = &fake_node;
@@ -209,10 +206,6 @@ lru_cache::iterator lru_cache::list::insert(node *place, node *x) {
     place->prev = x;
     prev_node->next = x;
     return lru_cache::iterator(x);
-}
-
-lru_cache::list::~list() {
-    fake_node.~node();
 }
 
 lru_cache::node *lru_cache::list::erase(node *x) {
@@ -298,8 +291,6 @@ lru_cache::~lru_cache() {
         set.erase(x);
         delete x;
     }
-    set.~bst_tree();
-    mem.~list();
 }
 
 
