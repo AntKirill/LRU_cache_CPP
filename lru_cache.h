@@ -137,7 +137,6 @@ struct lru_cache::iterator {
 
     iterator(node *);
 
-    ~iterator();
 
     value_type operator*() const;
 

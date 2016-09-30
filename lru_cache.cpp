@@ -8,10 +8,6 @@
 
 lru_cache::iterator::iterator(node *x) : my_el(x) { }
 
-lru_cache::iterator::~iterator() {
-    (*my_el).~node();
-}
-
 lru_cache::value_type lru_cache::iterator::operator*() const {
     return value_type(my_el->key, my_el->mapped);
 }
