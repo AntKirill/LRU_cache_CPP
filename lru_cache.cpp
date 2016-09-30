@@ -13,7 +13,7 @@ lru_cache::iterator::~iterator() {
 }
 
 lru_cache::value_type lru_cache::iterator::operator*() const {
-    return value_type(my_el->key, *my_el->mapped);
+    return value_type(my_el->key, my_el->mapped);
 }
 
 lru_cache::iterator lru_cache::iterator::operator++(int) {
@@ -38,7 +38,7 @@ lru_cache::iterator lru_cache::iterator::operator--(int) {
     return lru_cache::iterator(tmp);
 }
 
-lru_cache::bst_tree::bst_tree() : fake_node(0, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr) { }
+lru_cache::bst_tree::bst_tree() : fake_node(0, 0, nullptr, nullptr, nullptr, nullptr, nullptr) { }
 
 lru_cache::node *lru_cache::bst_tree::find(key_type x) {
     return search(fake_node.left, x);
@@ -124,8 +124,8 @@ lru_cache::node *lru_cache::bst_tree::_erase(node *x) {
         if (!bad) {
             best_node->right = x->right;
             x->right->parent = best_node;
-        } else {
-            best_node->right = nullptr;
+        } else if (best_node->right != nullptr) {
+            best_node->right->parent = best_node;
         }
         x->left->parent = best_node;
     }
@@ -191,7 +191,7 @@ lru_cache::node *lru_cache::bst_tree::erase(node *x) {
     return _erase(x);
 }
 
-lru_cache::node::node(key_type key, mapped_type *mapped, node *left, node *right, node *parent, node *next, node *prev)
+lru_cache::node::node(key_type key, mapped_type mapped, node *left, node *right, node *parent, node *next, node *prev)
         : key(
         key), mapped(mapped), left(left), right(right), parent(parent), next(next), prev(prev) { }
 
@@ -259,11 +259,9 @@ std::pair<lru_cache::iterator, bool> lru_cache::insert(value_type x) {
             node *useless_node = mem.end();
             set.erase(useless_node);
             mem.erase(useless_node);
-            delete useless_node->mapped;
             delete (useless_node);
         }
-        mapped_type *ptr = new mapped_type(x.second);
-        node *newnode = new node(x.first, ptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+        node *newnode = new node(x.first, x.second, nullptr, nullptr, nullptr, nullptr, nullptr);
         set.insert(newnode);
         return std::make_pair(mem.insert(mem.begin(), newnode), true);
     }
@@ -275,7 +273,6 @@ void lru_cache::erase(iterator it_on_x) {
     node *x = it_on_x.my_el;
     set.erase(x);
     mem.erase(x);
-    delete x->mapped;
     delete x;
 }
 
@@ -299,7 +296,6 @@ lru_cache::~lru_cache() {
     while (mem.size() > 0) {
         node *x = mem.erase(mem.begin());
         set.erase(x);
-        delete x->mapped;
         delete x;
     }
     set.~bst_tree();

@@ -77,11 +77,12 @@ void test3_cache(int n, int s) {
 
 void test4_cache() {
     lru_cache cache(10);
-    vector<pair<int, int>> k = {{6, 6}, {4, 4}, {8, 8}, {3, 3}, {5, 5}, {7, 7}, {9, 9}};
+    vector<pair<int, int>> k = {{6, 6}, {4, 4}, {8, 8}, {3, 3}, {5, 5}, {9, 9}, {1, 1}, {2, 2}};
     for (auto i: k) {
         cache.insert(i);
     }
-    cache.erase(cache.find(4));
+    cache.erase(cache.find(6));
+    //cache.erase(cache.find(9));
 }
 
 //void debug(int n) {
